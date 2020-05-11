@@ -21,5 +21,6 @@ fun copyEntities (deserializedPersons: Persons?) : PersonsDb {
         }
         entities.listOfPersons.add(personEntity)
     }
+
     return entities
 }

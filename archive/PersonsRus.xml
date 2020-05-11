@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persons>
+    <person>
+        <name>Дима Редькин</name>
+        <birthday>2000-02-11</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>Скалолазанье</hobby_name>
+                <complexity>65</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Вася Морковкин</name>
+        <birthday>2001-06-22</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>Шахматы</hobby_name>
+                <complexity>45</complexity>
+            </hobby>
+            <hobby>
+                <hobby_name>Турник</hobby_name>
+                <complexity>28</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Игорь Лапкин</name>
+        <birthday>2002-09-15</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>Программирование</hobby_name>
+                <complexity>20</complexity>
+            </hobby>
+            <hobby>
+                <hobby_name>Кроссфит</hobby_name>
+                <complexity>100</complexity>
+            </hobby>
+            <hobby>
+                <hobby_name>Ходьба</hobby_name>
+                <complexity>40</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Мальчик Ничем Не Интересуется</name>
+        <birthday>2005-10-06</birthday>
+        <hobbies/>
+    </person>
+</persons>

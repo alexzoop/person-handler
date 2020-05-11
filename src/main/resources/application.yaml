@@ -7,3 +7,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   main:
     banner-mode: off
+  rabbitmq:
+    dynamic: true
+    port: 5672
+    username: guest
+    password: 101rabbit
+    host: localhost

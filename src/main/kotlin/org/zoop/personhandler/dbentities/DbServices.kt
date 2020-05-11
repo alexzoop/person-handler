@@ -17,4 +17,19 @@ class DbServices (val personRepository: PersonRepository) {
         }
         return false
     }
+
+    fun getQuantity() : Long {
+        return personRepository.count()
+    }
+
+    fun getNameById(id : Long) : String {
+        val person = personRepository.findById(id) as PersonEntity
+        return person.name!!
+    }
+
+    fun updateAccount (id: Long, personalAccount : Int) {
+        val person = personRepository.findById(id) as PersonEntity
+        if (person.personal_account == null) person.personal_account = personalAccount
+        personRepository.save(person)
+    }
 }

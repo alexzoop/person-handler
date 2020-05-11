@@ -68,7 +68,7 @@ class ProcessConfig (val dbServices: DbServices) {
     fun successfulDirectory(): MessageHandler {
         val handler = FileWritingMessageHandler(File(archiveDir))
         handler.setExpectReply(false)
-        handler.setDeleteSourceFiles(true)
+        //handler.setDeleteSourceFiles(true)
         handler.setAutoCreateDirectory(true)
         return handler
     }
@@ -77,7 +77,7 @@ class ProcessConfig (val dbServices: DbServices) {
     fun unsuccessfulDirectory(): MessageHandler {
         val handler = FileWritingMessageHandler(File(errorDir))
         handler.setExpectReply(false)
-        handler.setDeleteSourceFiles(true)
+        //handler.setDeleteSourceFiles(true)
         handler.setAutoCreateDirectory(true)
         return handler
     }

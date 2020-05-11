@@ -18,4 +18,7 @@ class PersonEntity {
 
     @OneToMany(mappedBy = "person_entity", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var hobbies: MutableList<HobbyEntity> = ArrayList()
+
+    @Column(name = "personal_account")
+    var personal_account : Int? = null
 }
