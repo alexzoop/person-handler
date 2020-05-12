@@ -22,14 +22,27 @@ class DbServices (val personRepository: PersonRepository) {
         return personRepository.count()
     }
 
-    fun getNameById(id : Long) : String {
-        val person = personRepository.findById(id) as PersonEntity
-        return person.name!!
+    fun getNameById(id : Long) : String? {
+        return if (personRepository.findById(id).isPresent)
+            personRepository.findById(id).get().name!!
+        else {
+            println("ERROR! Cannot find person with id = $id in persons_db")
+            null
+        }
+    }
+
+    fun isEmptyAccount(id : Long) : Boolean {
+        return personRepository.findById(id).get().personal_account == null
     }
 
     fun updateAccount (id: Long, personalAccount : Int) {
-        val person = personRepository.findById(id) as PersonEntity
-        if (person.personal_account == null) person.personal_account = personalAccount
-        personRepository.save(person)
+        if (personRepository.findById(id).isPresent) {
+            val person = personRepository.findById(id).get()
+            if (person.personal_account == null) {
+                person.personal_account = personalAccount
+                personRepository.save(person)
+            }
+            println("Account of ${person.name} has successfully updated")
+        } else println("ERROR! Cannot find person with id = $id in persons_db")
     }
 }

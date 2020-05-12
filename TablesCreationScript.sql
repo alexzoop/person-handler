@@ -5,7 +5,7 @@ create table persons (
 	id serial primary key,
 	name varchar(255),
 	birthday date,
-	personal_account long unsigned
+	personal_account int unsigned
 ) comment = 'Person';
 
 drop table if exists hobbies;

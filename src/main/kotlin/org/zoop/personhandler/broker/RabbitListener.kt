@@ -6,10 +6,10 @@ import kotlin.math.absoluteValue
 
 @Component
 class RabbitListener {
+
     @RabbitListener(queues = ["account-queue"])
-    fun reply(message : String) : Int{
+    fun reply(message : String) : Int {
         println("Incoming request on <account-queue>: setting account for person $message")
-        Thread.sleep(1000)
         return message.hashCode().absoluteValue
     }
 

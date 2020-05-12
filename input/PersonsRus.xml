@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persons>
     <person>
-        <name>Дима Редькин</name>
+        <name>Дмитрий Иванович Редькин</name>
         <birthday>2000-02-11</birthday>
         <hobbies>
             <hobby>
@@ -11,7 +11,7 @@
         </hobbies>
     </person>
     <person>
-        <name>Вася Морковкин</name>
+        <name>Василий Игнатьевич Морковкин</name>
         <birthday>2001-06-22</birthday>
         <hobbies>
             <hobby>
@@ -25,7 +25,7 @@
         </hobbies>
     </person>
     <person>
-        <name>Игорь Лапкин</name>
+        <name>Игорь Сергеевич Лапкин</name>
         <birthday>2002-09-15</birthday>
         <hobbies>
             <hobby>
@@ -43,7 +43,7 @@
         </hobbies>
     </person>
     <person>
-        <name>Мальчик Ничем Не Интересуется</name>
+        <name>Родион Ярославович Красный</name>
         <birthday>2005-10-06</birthday>
         <hobbies/>
     </person>
