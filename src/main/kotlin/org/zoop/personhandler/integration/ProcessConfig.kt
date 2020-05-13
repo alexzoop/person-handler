@@ -2,6 +2,7 @@ package org.zoop.personhandler.integration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 import org.springframework.integration.core.MessageSource
 import org.springframework.integration.dsl.*
 import org.springframework.integration.file.FileReadingMessageSource
@@ -9,12 +10,14 @@ import org.springframework.integration.file.FileWritingMessageHandler
 import org.springframework.messaging.Message
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.MessageHandler
+import org.zoop.personhandler.broker.RabbitConfiguration
 import org.zoop.personhandler.dbentities.DbServices
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 
 @Configuration
+//@Import(RabbitConfiguration::class)
 class ProcessConfig (val dbServices: DbServices) {
     val inputDir = "input"
     val archiveDir = "archive"

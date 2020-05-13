@@ -10,12 +10,23 @@ import org.zoop.personhandler.dbentities.DbServices
 @Component
 class RabbitClient (val template : RabbitTemplate, val dbServices: DbServices){
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000)
+    fun requestAccounts() {
+        val count = dbServices.getQuantity()
+        for (id in 1..count) {
+            if (dbServices.isEmptyAccount(id)) {
+                template.convertAndSend("request-queue", dbServices.getNameById(id)!!)
+            }
+        }
+    }
+
+    @Scheduled(fixedDelay = 5000)
     fun assignAccounts() {
         val count = dbServices.getQuantity()
         for (id in 1..count) {
             if (dbServices.isEmptyAccount(id)) {
-                val account = template.convertSendAndReceive("account-queue", dbServices.getNameById(id)!!) as Int
+                val account = template.receiveAndConvert("answer-queue") as Int
+
                 dbServices.updateAccount(id, account)
             }
         }

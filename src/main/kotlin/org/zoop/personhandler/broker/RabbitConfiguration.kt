@@ -11,7 +11,12 @@ import org.springframework.context.annotation.Configuration
 class RabbitConfiguration {
 
     @Bean
-    fun myQueue(): Queue {
-        return Queue("account-queue")
+    fun requestQueue(): Queue {
+        return Queue("request-queue")
+    }
+
+    @Bean
+    fun answerQueue() : Queue {
+        return Queue("answer-queue")
     }
 }
