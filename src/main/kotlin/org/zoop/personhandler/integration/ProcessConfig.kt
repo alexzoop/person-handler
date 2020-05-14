@@ -7,6 +7,7 @@ import org.springframework.integration.core.MessageSource
 import org.springframework.integration.dsl.*
 import org.springframework.integration.file.FileReadingMessageSource
 import org.springframework.integration.file.FileWritingMessageHandler
+import org.springframework.integration.file.filters.SimplePatternFileListFilter
 import org.springframework.messaging.Message
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.MessageHandler
@@ -64,6 +65,7 @@ class ProcessConfig (val dbServices: DbServices) {
     fun sourceDirectory(): MessageSource<File> {
         val messageSource = FileReadingMessageSource()
         messageSource.setDirectory(File(inputDir))
+        messageSource.setFilter(SimplePatternFileListFilter("*.xml"))
         return messageSource
     }
 
@@ -71,7 +73,7 @@ class ProcessConfig (val dbServices: DbServices) {
     fun successfulDirectory(): MessageHandler {
         val handler = FileWritingMessageHandler(File(archiveDir))
         handler.setExpectReply(false)
-        //handler.setDeleteSourceFiles(true)
+        handler.setDeleteSourceFiles(true)
         handler.setAutoCreateDirectory(true)
         return handler
     }
@@ -80,7 +82,7 @@ class ProcessConfig (val dbServices: DbServices) {
     fun unsuccessfulDirectory(): MessageHandler {
         val handler = FileWritingMessageHandler(File(errorDir))
         handler.setExpectReply(false)
-        //handler.setDeleteSourceFiles(true)
+        handler.setDeleteSourceFiles(true)
         handler.setAutoCreateDirectory(true)
         return handler
     }

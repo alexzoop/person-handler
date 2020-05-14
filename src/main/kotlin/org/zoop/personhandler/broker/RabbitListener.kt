@@ -11,9 +11,12 @@ import kotlin.math.absoluteValue
 class RabbitListener (val template: RabbitTemplate) {
 
     @RabbitListener(queues = ["request-queue"])
-    fun reply(message : String) {
-        println("Incoming request on <account-queue>: setting account for person $message")
-        template.convertAndSend("answer-queue", message.hashCode().absoluteValue)
+    fun reply(message : Map<Int, String>) {
+        print("Incoming request on <account-queue>: setting account for person $message: ")
+        val key = message.keys.elementAt(0)
+        val answer = mutableMapOf(key to message.values.elementAt(0).hashCode().absoluteValue)
+        println(answer)
+        template.convertAndSend("answer-queue", answer)
     }
 
 }

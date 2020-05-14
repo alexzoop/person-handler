@@ -35,6 +35,14 @@ class DbServices (val personRepository: PersonRepository) {
         return personRepository.findById(id).get().personal_account == null
     }
 
+    fun getListOfEmptyAccounts() : List<Long> {
+        val count = getQuantity()
+        val list = mutableListOf<Long>()
+        for (id in 1..count) if (isEmptyAccount(id)) list.add(id)
+        return list
+    }
+
+
     fun updateAccount (id: Long, personalAccount : Int) {
         if (personRepository.findById(id).isPresent) {
             val person = personRepository.findById(id).get()
