@@ -1,7 +1,6 @@
 package org.zoop.personhandler.broker
 
 import org.springframework.amqp.rabbit.core.RabbitAdmin
-import org.springframework.amqp.rabbit.core.RabbitAdminEvent
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
@@ -27,7 +26,7 @@ class RabbitClient (val template : RabbitTemplate, val dbServices: DbServices, v
         if (rabbitAdmin.getQueueInfo("answer-queue").messageCount > 0) {
             val accountsMap = mutableMapOf<Long, Int>()
             repeat(dbServices.getListOfEmptyAccounts().size) {
-                val account = template.receiveAndConvert("answer-queue") as MutableMap<Long, Int>
+                val account = template.receiveAndConvert("answer-queue") as Map<Long, Int>
                 println("Received account: $account")
                 accountsMap.putAll(account)
             }

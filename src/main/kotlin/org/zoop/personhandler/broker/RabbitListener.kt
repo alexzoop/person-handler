@@ -18,7 +18,7 @@ class RabbitListener (val template: RabbitTemplate, val dbServices: DbServices, 
 
         if (rabbitAdmin.getQueueInfo("answer-queue").messageCount < dbServices.getListOfEmptyAccounts().size) {
             val key = message.keys.elementAt(0)
-            val answer = mutableMapOf(key to message.values.elementAt(0).hashCode().absoluteValue)
+            val answer = mapOf(key to message.values.elementAt(0).hashCode().absoluteValue)
             println(answer)
 
             template.convertAndSend("answer-queue", answer)
