@@ -14,13 +14,15 @@ class RabbitClient (val template : RabbitTemplate, val dbServices: DbServices, v
 
     @Scheduled(fixedDelay = 5000)
     fun requestAccounts() {
-        dbServices.getListOfEmptyAccounts().forEach { id ->
-            val requestMap = mapOf(id to dbServices.getNameById(id))
-            template.convertAndSend("request-queue", requestMap)
+        if (rabbitAdmin.getQueueInfo("request-queue").messageCount < dbServices.getListOfEmptyAccounts().size) {
+            dbServices.getListOfEmptyAccounts().forEach { id ->
+                val requestMap = mapOf(id to dbServices.getNameById(id))
+                template.convertAndSend("request-queue", requestMap)
+            }
         }
     }
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 15000)
     fun assignAccounts() {
         if (rabbitAdmin.getQueueInfo("answer-queue").messageCount > 0) {
             val accountsMap = mutableMapOf<Long, Int>()
