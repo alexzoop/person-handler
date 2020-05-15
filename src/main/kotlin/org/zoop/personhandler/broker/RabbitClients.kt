@@ -9,7 +9,7 @@ import org.zoop.personhandler.dbentities.DbServices
 
 @EnableScheduling
 @Component
-class RabbitClient (val template : RabbitTemplate, val dbServices: DbServices, val rabbitAdmin: RabbitAdmin){
+class RabbitClients (val template : RabbitTemplate, val dbServices: DbServices, val rabbitAdmin: RabbitAdmin){
 
     @Scheduled(fixedDelay = 5000)
     fun requestAccounts() {

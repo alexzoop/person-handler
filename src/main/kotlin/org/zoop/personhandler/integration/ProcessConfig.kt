@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 
 @Configuration
-//@Import(RabbitConfiguration::class)
 class ProcessConfig (val dbServices: DbServices) {
     val inputDir = "input"
     val archiveDir = "archive"
