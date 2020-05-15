@@ -25,7 +25,8 @@ class ProcessConfig (val dbServices: DbServices) {
 
     @Bean
     fun rightXmlMover(): IntegrationFlow {
-        return IntegrationFlows.from(sourceDirectory(), Consumer { c: SourcePollingChannelAdapterSpec -> c.poller(Pollers.fixedDelay(1000)) })
+        return IntegrationFlows.from(sourceDirectory(), Consumer { c: SourcePollingChannelAdapterSpec ->
+            c.poller(Pollers.fixedDelay(1000)) })
                 .route<Message<File>, Boolean>({ file -> dbServices.unmarshallAndInsertData(file.payload.path) },
                         { target ->
                             target.channelMapping(true, "successfulChannel")

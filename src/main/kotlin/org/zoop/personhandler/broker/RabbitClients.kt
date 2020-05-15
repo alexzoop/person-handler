@@ -14,6 +14,7 @@ class RabbitClients (val template : RabbitTemplate, val dbServices: DbServices, 
     @Scheduled(fixedDelay = 5000)
     fun requestAccounts() {
         if (rabbitAdmin.getQueueInfo("request-queue").messageCount < dbServices.getListOfEmptyAccounts().size) {
+            rabbitAdmin.purgeQueue("request-queue")
             dbServices.getListOfEmptyAccounts().forEach { id ->
                 val requestMap = mapOf(id to dbServices.getNameById(id))
                 template.convertAndSend("request-queue", requestMap)
@@ -31,6 +32,7 @@ class RabbitClients (val template : RabbitTemplate, val dbServices: DbServices, 
                 accountsMap.putAll(account)
             }
             accountsMap.forEach { (id, acc) -> dbServices.updateAccount(id, acc) }
+            rabbitAdmin.purgeQueue("answer-queue")
         }
     }
 }
