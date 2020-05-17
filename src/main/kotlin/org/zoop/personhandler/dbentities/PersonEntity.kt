@@ -1,5 +1,6 @@
 package org.zoop.personhandler.dbentities
 
+import org.springframework.format.annotation.DateTimeFormat
 import java.util.*
 import javax.persistence.*
 
@@ -13,6 +14,7 @@ class PersonEntity {
     @Column(name = "name")
     var name : String? = null
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
     var birthday : Date? = null
 

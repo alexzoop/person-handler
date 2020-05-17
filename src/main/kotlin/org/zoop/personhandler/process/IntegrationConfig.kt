@@ -17,9 +17,9 @@ import java.util.function.Consumer
 
 @Configuration
 class IntegrationConfig (val dbServices: DbServices) {
-    val inputDir = "src/main/resources/xmlData/input"
-    val archiveDir = "src/main/resources/xmlData/archive"
-    val errorDir = "src/main/resources/xmlData/error"
+    val inputDir = "xmlData/input"
+    val archiveDir = "xmlData/archive"
+    val errorDir = "xmlData/error"
 
     @Bean
     fun rightXmlMover(): IntegrationFlow {
