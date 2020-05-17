@@ -18,9 +18,7 @@ class DbServices (val personRepository: PersonRepository) {
         return false
     }
 
-    fun getQuantity() : Long {
-        return personRepository.count()
-    }
+    fun getQuantity() = personRepository.count()
 
     fun getNameById(id : Long) : String? {
         return if (personRepository.findById(id).isPresent)
@@ -31,9 +29,7 @@ class DbServices (val personRepository: PersonRepository) {
         }
     }
 
-    fun isEmptyAccount(id : Long) : Boolean {
-        return personRepository.findById(id).get().personal_account == null
-    }
+    fun isEmptyAccount(id : Long) = personRepository.findById(id).get().personal_account == null
 
     fun getListOfEmptyAccounts() : List<Long> {
         val count = getQuantity()
@@ -41,7 +37,6 @@ class DbServices (val personRepository: PersonRepository) {
         for (id in 1..count) if (isEmptyAccount(id)) list.add(id)
         return list
     }
-
 
     fun updateAccount (id: Long, personalAccount : Int) {
         if (personRepository.findById(id).isPresent) {
@@ -52,5 +47,24 @@ class DbServices (val personRepository: PersonRepository) {
             }
             println("Account of ${person.name} has successfully updated")
         } else println("ERROR! Cannot find person with id = $id in persons_db")
+    }
+
+    fun getAllPersons() : PersonsDb {
+        val personsFromRepo : MutableIterable<PersonEntity> = personRepository.findAll()
+        var personsDb = PersonsDb()
+        personsFromRepo.forEach {
+            personsDb.listOfPersons.add(it)
+        }
+        return personsDb
+    }
+
+    fun getPersonDTO(id : Long) : Map<Long?, String?>? {
+        if (personRepository.findById(id).isPresent) {
+            val person = personRepository.findById(id).get()
+            val personDTO = mapOf(person.id to person.name)
+            println("Account of ${person.name} has successfully updated")
+            return personDTO
+        } else println("ERROR! Cannot find person with id = $id in persons_db")
+        return null
     }
 }

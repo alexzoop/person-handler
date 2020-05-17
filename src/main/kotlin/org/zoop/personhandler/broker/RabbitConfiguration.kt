@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration
 @EnableRabbit
 @Configuration
 class RabbitConfiguration {
+    @Bean
+    fun requestQueue() = Queue("request-queue")
 
     @Bean
-    fun requestQueue(): Queue {
-        return Queue("account-queue")
-    }
+    fun answerQueue() =  Queue("answer-queue")
 }

@@ -1,8 +1,7 @@
-package org.zoop.personhandler.integration
+package org.zoop.personhandler.process
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Import
 import org.springframework.integration.core.MessageSource
 import org.springframework.integration.dsl.*
 import org.springframework.integration.file.FileReadingMessageSource
@@ -11,17 +10,16 @@ import org.springframework.integration.file.filters.SimplePatternFileListFilter
 import org.springframework.messaging.Message
 import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.MessageHandler
-import org.zoop.personhandler.broker.RabbitConfiguration
 import org.zoop.personhandler.dbentities.DbServices
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 
 @Configuration
-class ProcessConfig (val dbServices: DbServices) {
-    val inputDir = "input"
-    val archiveDir = "archive"
-    val errorDir = "error"
+class IntegrationConfig (val dbServices: DbServices) {
+    val inputDir = "src/main/resources/xmlData/input"
+    val archiveDir = "src/main/resources/xmlData/archive"
+    val errorDir = "src/main/resources/xmlData/error"
 
     @Bean
     fun rightXmlMover(): IntegrationFlow {

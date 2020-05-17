@@ -3,6 +3,7 @@ package org.zoop.personhandler.utils
 import org.zoop.personhandler.dbentities.HobbyEntity
 import org.zoop.personhandler.dbentities.PersonEntity
 import org.zoop.personhandler.dbentities.PersonsDb
+import org.zoop.personhandler.xmlentities.Person
 import org.zoop.personhandler.xmlentities.Persons
 
 fun copyEntities (deserializedPersons: Persons?) : PersonsDb {
