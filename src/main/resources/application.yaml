@@ -13,3 +13,7 @@ spring:
     username: guest
     password: 101rabbit
     host: localhost
+welcome:
+  message: This is a Person-Hadler Project by xdzoop
+error:
+  message: Some data is wrong!
