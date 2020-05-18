@@ -9,7 +9,7 @@ class AccountClientsRabbit(
 
     override fun requestAccounts() {
         dbServices.getListOfEmptyAccounts().forEach { id ->
-            template.convertAndSend("request-queue", dbServices.getPersonDTO(id)!!)
+            template.convertAndSend("request-queue", dbServices.getNameMap(id)!!)
         }
     }
 

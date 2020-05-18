@@ -1,6 +1,9 @@
 package org.zoop.personhandler.dbentities
 
 import org.springframework.stereotype.Component
+import org.zoop.personhandler.restdto.PersonDTO
+import org.zoop.personhandler.restdto.PersonsDTO
+import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.utils.copyEntities
 import org.zoop.personhandler.xmlentities.unmarshalData
 
@@ -58,7 +61,21 @@ class DbServices (val personRepository: PersonRepository) {
         return personsDb
     }
 
-    fun getPersonDTO(id : Long) : Map<Long?, String?>? {
+    fun toPersonDTO(personEntity: PersonEntity) = PersonDTO(
+            personEntity.id,
+            personEntity.name,
+            DateFormatter.dateFormat.format(personEntity.birthday),
+            personEntity.personal_account
+    )
+
+    fun getPersonDTO(id : Long) : PersonDTO? {
+        if (personRepository.findById(id).isPresent) {
+            val person = personRepository.findById(id).get()
+            return toPersonDTO(person)
+        } else println("ERROR! Cannot find person with id = $id in persons_db")
+        return null
+    }
+    fun getNameMap(id: Long): Map<Long?, String?>? {
         if (personRepository.findById(id).isPresent) {
             val person = personRepository.findById(id).get()
             val personDTO = mapOf(person.id to person.name)
@@ -66,5 +83,16 @@ class DbServices (val personRepository: PersonRepository) {
             return personDTO
         } else println("ERROR! Cannot find person with id = $id in persons_db")
         return null
+
     }
+
+    fun getAllPersonsDTO() : PersonsDTO {
+        val persons = getAllPersons()
+        var personsList : MutableList<PersonDTO> = arrayListOf()
+        persons.listOfPersons.forEach {
+            personsList.add(toPersonDTO(it))
+        }
+        return PersonsDTO(personsList)
+    }
+
 }
