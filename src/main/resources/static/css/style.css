@@ -1,38 +1,120 @@
 h1 {
-    color: #0a2068;
-    background-color: aliceblue;
-    position: center;
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    font-family: 'Titillium Web', sans-serif;
+    position: relative;
     text-align: center;
+    font-size: 36px;
+    line-height: 40px;
+    padding: 15px 15px 15px 15%;
+    color: #355681;
+    box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4),
+    inset 0 0 5px rgba(53, 86, 129, 0.5),
+    inset -285px 0 35px white;
+    border-radius: 0 10px 0 10px;
+    background: #fff;
 }
 
 h2 {
-    color: #ff0000;
+    margin: 1em 0 0.5em 0;
+    font-weight: normal;
+    font-style: italic;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.6);
+    font-size: 28px;
+    text-align: center;
+    line-height: 40px;
+    background: #355681;
+    background: rgba(53, 86, 129, 0.8);
+    background-size: contain;
+    border: 1px solid #fff;
+    padding: 5px 15px;
+    color: white;
+    border-radius: 0 10px 0 10px;
+    box-shadow: inset 0 0 5px rgba(53, 86, 129, 0.5);
+    font-family: 'Muli', sans-serif;
+}
+
+main h3 {
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    font-family: 'Titillium Web', sans-serif;
+    position: relative;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+    font-size: 22px;
+    line-height: 40px;
+    color: #355681;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(53, 86, 129, 0.3);
+}
+
+h4 {
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    font-family: 'Titillium Web', sans-serif;
+    position: relative;
+    font-size: 18px;
+    line-height: 20px;
+    color: #788699;
+    font-family: 'Muli', sans-serif;
 }
 
 table {
+    text-decoration: none;
     border-collapse: collapse;
+    width: 100%;
+    text-align: center;
 }
 
-table th, table td {
-    font-size: large;
-    padding: 10px;
+table th {
+    font-weight: normal;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #355681;
+    font-family: 'Muli', sans-serif;
+}
+
+table td {
+    font-size: 18px;
+    color: #000000;
+    font-family: 'Muli', sans-serif;
+}
+
+table td, table th {
+    white-space: pre-wrap;
+    padding: 10px 5px;
+    line-height: 16px;
+    vertical-align: middle;
+    border: 3px solid #355681;
+}
+
+table tr:hover {
+    background-color: #e0e0e0
+}
+
+table tr:hover td {
+    color: #000000;
+    cursor: default;
 }
 
 a {
-    background-color: red;
-    box-shadow: 0 5px 0 darkred;
-    color: white;
-    padding: 1em 1.5em;
-    position: relative;
     text-decoration: none;
-    text-transform: uppercase;
+    outline: none;
+    display: inline-block;
+    padding: 12px 40px;
+    margin: 10px 20px;
+    border-radius: 30px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
 }
 
 a:hover {
-    background-color: #ce0606;
-}
-
-a:active {
-    box-shadow: none;
-    top: 5px;
+    box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+    background-position: 0 0;
 }
