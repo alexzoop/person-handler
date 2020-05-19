@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persons>
+    <person>
+        <name>Ivanov Ivan Sergeevich</name>
+        <birthday>1985-02-11</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>piano</hobby_name>
+                <complexity>80</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Petrov Dmitriy Vladimirovich</name>
+        <birthday>1988-06-22</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>guitar</hobby_name>
+                <complexity>90</complexity>
+            </hobby>
+            <hobby>
+                <hobby_name>acrobatics</hobby_name>
+                <complexity>100</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Shevstov Aleksandr Andreevich</name>
+        <birthday>1990-09-15</birthday>
+        <hobbies>
+            <hobby>
+                <hobby_name>bycicle</hobby_name>
+                <complexity>20</complexity>
+            </hobby>
+            <hobby>
+                <hobby_name>running</hobby_name>
+                <complexity>40</complexity>
+            </hobby>
+        </hobbies>
+    </person>
+    <person>
+        <name>Vasilyev Gennadiy Danilovich</name>
+        <birthday>1992-10-06</birthday>
+        <hobbies/>
+    </person>    
+</persons>

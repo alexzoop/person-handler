@@ -1,0 +1,38 @@
+h1 {
+    color: #0a2068;
+    background-color: aliceblue;
+    position: center;
+    text-align: center;
+}
+
+h2 {
+    color: #ff0000;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table th, table td {
+    font-size: large;
+    padding: 10px;
+}
+
+a {
+    background-color: red;
+    box-shadow: 0 5px 0 darkred;
+    color: white;
+    padding: 1em 1.5em;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:hover {
+    background-color: #ce0606;
+}
+
+a:active {
+    box-shadow: none;
+    top: 5px;
+}
