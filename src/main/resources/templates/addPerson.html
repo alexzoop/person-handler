@@ -2,28 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Add Person</title>
+    <title>Add new Person</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <h1>Create a Person:</h1>
 <form th:action="@{/addPerson}"
-      th:object="${person}" method="POST">
-    First Name:
-    <input type="text" th:field="*{firstName}" />
+      th:object="${personAddForm}" method="POST">
+    Name:
+    <input type="text" placeholder="First and Last name" th:field="*{name}" />
     <br/>
-    Last Name:
-    <input type="text" th:field="*{lastName}" />
+    Birthday:
+    <input type="text" placeholder="yyyy-MM-dd" th:field="*{birthday}" />
     <br/>
-    <input type="submit" value="Create" />
+    <input type="submit" value="Add person" />
 </form>
-
-<br/>
-
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
-     style="color:red;font-style:italic;">
+     style="color:red;font-style:italic; font-size: 20px; padding-top: 20px; padding-left: 20px">
     ...
 </div>
+<br/>
+
+
 
 </body>
 </html>

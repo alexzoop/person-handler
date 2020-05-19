@@ -8,15 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 import org.zoop.personhandler.dbentities.DbServices
+import org.zoop.personhandler.restdto.PersonAddForm
+import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.xmlentities.Person
 import java.util.*
 
 
 @Controller
-class Controller (val dbServices: DbServices) {
+class Controller(val dbServices: DbServices) {
 
     @Value("\${welcome.message}")
-    lateinit var welcomeMessage : String
+    lateinit var welcomeMessage: String
 
     @Value("\${error.message}")
     lateinit var errorMessage : String
@@ -32,26 +34,32 @@ class Controller (val dbServices: DbServices) {
         model.addAttribute("persons", dbServices.getAllPersonsDTO().listOfPersons)
         return "personList"
     }
-/*
+
     @RequestMapping(value = ["/addPerson"], method = [RequestMethod.GET])
     fun showAddPersonPage(model: Model): String {
-        val personForm = PersonForm()
-        model.addAttribute("personForm", personForm)
+        val personAddForm = PersonAddForm()
+        model.addAttribute("personAddForm", personAddForm)
         return "addPerson"
     }
 
     @RequestMapping(value = ["/addPerson"], method = [RequestMethod.POST])
-    fun savePerson(model: Model,  //
-                   @ModelAttribute("personForm") personForm: PersonForm): String {
-        val firstName: String = personForm.getFirstName()
-        val lastName: String = personForm.getLastName()
-        if (firstName != null && firstName.length > 0 //
-                && lastName != null && lastName.length > 0) {
-            val newPerson = Person(firstName, lastName)
-            persons.add(newPerson)
+    fun savePerson(
+            model: Model,
+            @ModelAttribute("personAddForm") personAddForm: PersonAddForm
+    ): String {
+        val name: String? = personAddForm.name
+        val birthday: String? = personAddForm.birthday
+        if (
+                name != null
+                && name.isNotEmpty()
+                && birthday != null
+                && birthday.isNotEmpty()
+                && DateFormatter.isValid(birthday)
+        ) {
+            dbServices.addPersonForm(personAddForm)
             return "redirect:/personList"
         }
         model.addAttribute("errorMessage", errorMessage)
         return "addPerson"
-    }*/
+    }
 }

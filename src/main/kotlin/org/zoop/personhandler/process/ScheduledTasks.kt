@@ -11,8 +11,8 @@ import org.zoop.personhandler.dbentities.DbServices
 @EnableScheduling
 @Component
 class ScheduledTasks(
-        val template: RabbitTemplate,
-        val dbServices: DbServices) {
+         template: RabbitTemplate,
+         dbServices: DbServices) {
 
     val accountClientsRabbit = AccountClientsRabbit(template, dbServices)
 

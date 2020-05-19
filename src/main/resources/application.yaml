@@ -16,4 +16,4 @@ spring:
 welcome:
   message: This is a Person-Hadler Project by xdzoop
 error:
-  message: Some data is wrong!
+  message: Please, enter the valid data!

@@ -1,6 +1,7 @@
 package org.zoop.personhandler.dbentities
 
 import org.springframework.stereotype.Component
+import org.zoop.personhandler.restdto.PersonAddForm
 import org.zoop.personhandler.restdto.PersonDTO
 import org.zoop.personhandler.restdto.PersonsDTO
 import org.zoop.personhandler.utils.DateFormatter
@@ -93,6 +94,13 @@ class DbServices (val personRepository: PersonRepository) {
             personsList.add(toPersonDTO(it))
         }
         return PersonsDTO(personsList)
+    }
+
+    fun addPersonForm(personAddForm: PersonAddForm) {
+        val personEntity = PersonEntity()
+        personEntity.name = personAddForm.name
+        personEntity.birthday = DateFormatter.dateFormat.parse(personAddForm.birthday)
+        personRepository.save(personEntity)
     }
 
 }

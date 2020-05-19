@@ -2,8 +2,7 @@ h1 {
     margin: 1em 0 0.5em 0;
     font-weight: 600;
     font-family: 'Titillium Web', sans-serif;
-    position: relative;
-    text-align: center;
+    text-align: -moz-center;
     font-size: 36px;
     line-height: 40px;
     padding: 15px 15px 15px 15%;
@@ -21,7 +20,7 @@ h2 {
     font-style: italic;
     text-shadow: 0 -1px rgba(0, 0, 0, 0.6);
     font-size: 28px;
-    text-align: center;
+    text-align: -moz-center;
     line-height: 40px;
     background: #355681;
     background: rgba(53, 86, 129, 0.8);
@@ -94,6 +93,45 @@ table tr:hover {
 table tr:hover td {
     color: #000000;
     cursor: default;
+}
+
+
+form {
+    display: inline-grid;
+    align-items: center;
+    padding: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+input[type = submit] {
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    padding: 12px 20px;
+    margin: 10px 20px;
+    border-radius: 20px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);
+    transition: .5s;
+}
+input[type = submit]:hover {
+    box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+    background-position: 0 0;
+}
+input[type = text] {
+    width : auto;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 4px solid #355681;
+    border-radius: 4px;
 }
 
 a {

@@ -15,12 +15,14 @@
             <th>Name</th>
             <th>Birthday</th>
             <th>Account</th>
+            <th>Delete</th>
         </tr>
         <tr th:each ="PersonDTO : ${persons}">
             <td th:utext="${PersonDTO.id}">...</td>
             <td th:utext="${PersonDTO.name}">...</td>
             <td th:utext="${PersonDTO.birthday}">...</td>
             <td th:utext="${PersonDTO.account}">...</td>
+            <td th:action="@{/deletePerson}" th:object="${PersonDTO.id}" method="POST">X</td>
         </tr>
     </table>
 </div>
