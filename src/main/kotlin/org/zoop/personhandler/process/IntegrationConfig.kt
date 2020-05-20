@@ -16,31 +16,31 @@ import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
 
 @Configuration
-class IntegrationConfig (val dbServices: DbServices) {
+class IntegrationConfig(val dbServices: DbServices) {
     val inputDir = "xmlData/input"
     val archiveDir = "xmlData/archive"
     val errorDir = "xmlData/error"
 
     @Bean
     fun rightXmlMover(): IntegrationFlow {
-        return IntegrationFlows.from(sourceDirectory(), Consumer { c: SourcePollingChannelAdapterSpec -> c.poller(Pollers.fixedDelay(1000)) })
-                .route<Message<File>, Boolean>({ file -> dbServices.unmarshallAndInsertData(file.payload.path) },
+        return IntegrationFlows.from(sourceDirectory(), Consumer {
+            c: SourcePollingChannelAdapterSpec -> c.poller(Pollers.fixedDelay(1000))
+        })
+                .route<Message<File>, Boolean>(
+                        { file -> dbServices.unmarshallAndInsertData(file.payload.path) },
                         { target ->
                             target.channelMapping(true, "successfulChannel")
                                     .channelMapping(false, "unsuccessfulChannel")
-                        })
+                        }
+                )
                 .get()
     }
 
     @Bean
-    fun successfulChannel(): MessageChannel {
-        return MessageChannels.queue().get()
-    }
+    fun successfulChannel() = MessageChannels.queue().get()!!
 
     @Bean
-    fun unsuccessfulChannel(): MessageChannel {
-        return MessageChannels.queue().get()
-    }
+    fun unsuccessfulChannel() = MessageChannels.queue().get()!!
 
     @Bean
     fun rightFileWriter(): IntegrationFlow {

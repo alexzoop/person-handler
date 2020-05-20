@@ -3,15 +3,11 @@ package org.zoop.personhandler.controller
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.zoop.personhandler.dbentities.DbServices
 import org.zoop.personhandler.restdto.PersonAddForm
 import org.zoop.personhandler.utils.DateFormatter
-import org.zoop.personhandler.xmlentities.Person
-import java.util.*
+import java.util.concurrent.atomic.AtomicLong
 
 
 @Controller
@@ -21,7 +17,7 @@ class Controller(val dbServices: DbServices) {
     lateinit var welcomeMessage: String
 
     @Value("\${error.message}")
-    lateinit var errorMessage : String
+    lateinit var errorMessage: String
 
     @RequestMapping(value = ["/", "/index"], method = [RequestMethod.GET])
     fun index(model: Model): String {
@@ -61,5 +57,11 @@ class Controller(val dbServices: DbServices) {
         }
         model.addAttribute("errorMessage", errorMessage)
         return "addPerson"
+    }
+
+    @RequestMapping("/delete")
+    fun greeting(@RequestParam(value = "id") id: Long): String {
+        if (dbServices.isValidId(id)) dbServices.deleteById(id)
+        return "redirect:/personList"
     }
 }

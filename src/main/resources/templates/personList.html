@@ -22,7 +22,7 @@
             <td th:utext="${PersonDTO.name}">...</td>
             <td th:utext="${PersonDTO.birthday}">...</td>
             <td th:utext="${PersonDTO.account}">...</td>
-            <td th:action="@{/deletePerson}" th:object="${PersonDTO.id}" method="POST">X</td>
+            <td> <a th:href="@{'/delete?id=' + ${PersonDTO.id}}">x</a> </td>
         </tr>
     </table>
 </div>

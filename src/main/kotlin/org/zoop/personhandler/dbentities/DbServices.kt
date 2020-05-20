@@ -103,4 +103,11 @@ class DbServices (val personRepository: PersonRepository) {
         personRepository.save(personEntity)
     }
 
+    fun isValidId(id : Long) = personRepository.existsById(id)
+
+    fun deleteById(id : Long) {
+        if (isValidId(id)) personRepository.deleteById(id)
+        else println("ERROR! Cannot find person with id = $id in persons_db")
+    }
+
 }
