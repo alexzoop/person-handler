@@ -1,6 +1,7 @@
 package org.zoop.personhandler.process
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener
+import org.springframework.amqp.rabbit.core.RabbitAdmin
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.scheduling.annotation.EnableScheduling
 import org.springframework.scheduling.annotation.Scheduled
@@ -11,10 +12,11 @@ import org.zoop.personhandler.dbentities.DbServices
 @EnableScheduling
 @Component
 class ScheduledTasks(
-         template: RabbitTemplate,
-         dbServices: DbServices) {
+        template: RabbitTemplate,
+        dbServices: DbServices,
+        rabbitAdmin: RabbitAdmin) {
 
-    val accountClientsRabbit = AccountClientsRabbit(template, dbServices)
+    val accountClientsRabbit = AccountClientsRabbit(template, dbServices, rabbitAdmin)
 
     @Scheduled(fixedDelay = 5000)
     fun requestAccountsTask() {

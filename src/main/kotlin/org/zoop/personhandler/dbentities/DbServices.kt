@@ -1,9 +1,7 @@
 package org.zoop.personhandler.dbentities
 
 import org.springframework.stereotype.Component
-import org.zoop.personhandler.restdto.PersonAddForm
-import org.zoop.personhandler.restdto.PersonDTO
-import org.zoop.personhandler.restdto.PersonsDTO
+import org.zoop.personhandler.restdto.*
 import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.utils.copyEntities
 import org.zoop.personhandler.xmlentities.unmarshalData
@@ -36,9 +34,10 @@ class DbServices (val personRepository: PersonRepository) {
     fun isEmptyAccount(id : Long) = personRepository.findById(id).get().personal_account == null
 
     fun getListOfEmptyAccounts() : List<Long> {
-        val count = getQuantity()
         val list = mutableListOf<Long>()
-        for (id in 1..count) if (isEmptyAccount(id)) list.add(id)
+        personRepository.getAllId().forEach {
+            if (isEmptyAccount(it)) list.add(it)
+        }
         return list
     }
 
@@ -62,11 +61,23 @@ class DbServices (val personRepository: PersonRepository) {
         return personsDb
     }
 
+    fun toHobbyDTO(hobbyEntity: HobbyEntity) = HobbyDTO(
+            hobbyEntity.hobby_name,
+            hobbyEntity.complexity
+    )
+
+    fun getHobbiesDTO(personEntity: PersonEntity) : HobbiesDTO{
+        val hobbyList : MutableList<HobbyDTO> = arrayListOf()
+        personEntity.hobbies.forEach{hobbyList.add(toHobbyDTO(it))}
+        return HobbiesDTO(hobbyList)
+    }
+
     fun toPersonDTO(personEntity: PersonEntity) = PersonDTO(
             personEntity.id,
             personEntity.name,
             DateFormatter.dateFormat.format(personEntity.birthday),
-            personEntity.personal_account
+            personEntity.personal_account,
+            getHobbiesDTO(personEntity)
     )
 
     fun getPersonDTO(id : Long) : PersonDTO? {
@@ -76,6 +87,7 @@ class DbServices (val personRepository: PersonRepository) {
         } else println("ERROR! Cannot find person with id = $id in persons_db")
         return null
     }
+
     fun getNameMap(id: Long): Map<Long?, String?>? {
         if (personRepository.findById(id).isPresent) {
             val person = personRepository.findById(id).get()

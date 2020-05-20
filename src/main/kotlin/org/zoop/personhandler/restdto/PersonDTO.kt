@@ -4,6 +4,6 @@ data class PersonDTO(
         val id : Long?,
         val name : String?,
         val birthday : String?,
-        val account : Int?
-        //val hobbies : List<HobbyDTO>?
+        val account : Int?,
+        val hobbies : HobbiesDTO?
 )

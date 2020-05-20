@@ -15,6 +15,7 @@
             <th>Name</th>
             <th>Birthday</th>
             <th>Account</th>
+            <th>Hobbies</th>
             <th>Delete</th>
         </tr>
         <tr th:each ="PersonDTO : ${persons}">
@@ -22,6 +23,7 @@
             <td th:utext="${PersonDTO.name}">...</td>
             <td th:utext="${PersonDTO.birthday}">...</td>
             <td th:utext="${PersonDTO.account}">...</td>
+            <td th:utext="${PersonDTO.hobbies}">...</td>
             <td> <a th:href="@{'/delete?id=' + ${PersonDTO.id}}">x</a> </td>
         </tr>
     </table>

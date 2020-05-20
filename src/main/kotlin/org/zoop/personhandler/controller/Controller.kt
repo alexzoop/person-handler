@@ -60,7 +60,7 @@ class Controller(val dbServices: DbServices) {
     }
 
     @RequestMapping("/delete")
-    fun greeting(@RequestParam(value = "id") id: Long): String {
+    fun deletePerson(@RequestParam(value = "id") id: Long): String {
         if (dbServices.isValidId(id)) dbServices.deleteById(id)
         return "redirect:/personList"
     }
