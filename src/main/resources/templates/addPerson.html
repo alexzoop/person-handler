@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<a href="index">Main Page</a>
+<a href="personList">Person List</a>
 <h1>Create a Person:</h1>
 <form th:action="@{/addPerson}"
       th:object="${personAddForm}" method="POST">

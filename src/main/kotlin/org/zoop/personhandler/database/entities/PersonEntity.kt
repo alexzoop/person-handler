@@ -1,6 +1,7 @@
-package org.zoop.personhandler.dbentities
+package org.zoop.personhandler.database.entities
 
 import org.springframework.format.annotation.DateTimeFormat
+import org.zoop.personhandler.database.entities.HobbyEntity
 import java.util.*
 import javax.persistence.*
 

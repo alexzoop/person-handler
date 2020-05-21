@@ -1,13 +1,12 @@
 package org.zoop.personhandler.utils
 
-import org.zoop.personhandler.dbentities.HobbyEntity
-import org.zoop.personhandler.dbentities.PersonEntity
-import org.zoop.personhandler.dbentities.PersonsDb
-import org.zoop.personhandler.xmlentities.Person
+import org.zoop.personhandler.database.entities.HobbyEntity
+import org.zoop.personhandler.database.entities.PersonEntity
+import org.zoop.personhandler.database.entities.PersonsDb
 import org.zoop.personhandler.xmlentities.Persons
 
 fun copyEntities (deserializedPersons: Persons?) : PersonsDb {
-    val entities = PersonsDb ()
+    val entities = PersonsDb()
     deserializedPersons!!.listOfPersons.forEach {xmlPerson ->
         val personEntity = PersonEntity()
         personEntity.name = xmlPerson.name

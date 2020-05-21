@@ -62,9 +62,8 @@ h4 {
 
 table {
     text-decoration: none;
-    border-collapse: collapse;
-    width: 100%;
     text-align: center;
+    border-collapse: collapse;
 }
 
 table th {
@@ -73,12 +72,15 @@ table th {
     color: #ffffff;
     background-color: #355681;
     font-family: 'Muli', sans-serif;
+
 }
 
 table td {
-    font-size: 16px;
+    font-size: 18px;
     color: #000000;
     font-family: 'Muli', sans-serif;
+    line-height: inherit;
+
 }
 
 table td, table th {

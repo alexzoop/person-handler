@@ -2,7 +2,7 @@ package org.zoop.personhandler.broker
 
 import org.springframework.amqp.rabbit.core.RabbitAdmin
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import org.zoop.personhandler.dbentities.DbServices
+import org.zoop.personhandler.database.DbServices
 
 class AccountClientsRabbit(
         val template: RabbitTemplate,

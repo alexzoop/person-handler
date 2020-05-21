@@ -1,4 +1,4 @@
-package org.zoop.personhandler.dbentities
+package org.zoop.personhandler.database.entities
 
 import javax.persistence.*
 

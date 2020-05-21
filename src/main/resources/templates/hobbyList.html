@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Hobby List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1 th:utext="${'Hobbies of ' + PersonDTO.name}"></h1>
+<a href="index">Main Page</a>
+<a href="personList">Person List</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Name of Hobby</th>
+            <th>Complexity</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each ="HobbyDTO : ${PersonDTO.hobbies.hobbyList}">
+            <td th:utext="${HobbyDTO.hobby_name}">...</td>
+            <td th:utext="${HobbyDTO.complexity}">...</td>
+            <td> <a th:href="@{'/deleteHobby?id=' + ${HobbyDTO.id}}">x</a> </td>
+        </tr>
+    </table>
+</div>
+<br/><br/>
+<a th:href="@{'/addHobby?personid=' + ${PersonDTO.id}}">Add Hobby</a>
+</body>
+</html>

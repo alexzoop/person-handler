@@ -1,40 +1,37 @@
-package org.zoop.personhandler.dbentities
+package org.zoop.personhandler.database
 
 import org.springframework.stereotype.Component
 import org.zoop.personhandler.controller.forms.PersonAddForm
+import org.zoop.personhandler.database.entities.HobbyEntity
+import org.zoop.personhandler.database.entities.PersonEntity
+import org.zoop.personhandler.database.entities.PersonsDb
+import org.zoop.personhandler.database.repo.HobbyRepository
+import org.zoop.personhandler.database.repo.PersonRepository
 import org.zoop.personhandler.restdto.*
 import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.utils.copyEntities
 import org.zoop.personhandler.xmlentities.unmarshalData
 
 @Component
-class DbServices (val personRepository: PersonRepository) {
-    fun unmarshallAndInsertData (filepath : String) : Boolean {
+class DbServices(
+        val personRepository: PersonRepository,
+        val hobbyRepository: HobbyRepository) {
+
+    fun unmarshallAndInsertData(filepath: String): Boolean {
         try {
             val insertedData: PersonsDb? = copyEntities(unmarshalData(filepath))
             personRepository.saveAll(insertedData!!.listOfPersons)
             println("Data from $filepath have been successfully written into database")
             return true
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             println("Data from $filepath doesn't been written into database because of ${e.message}")
         }
         return false
     }
 
-    fun getQuantity() = personRepository.count()
+    fun isEmptyAccount(id: Long) = personRepository.findById(id).get().personal_account == null
 
-    fun getNameById(id : Long) : String? {
-        return if (personRepository.findById(id).isPresent)
-            personRepository.findById(id).get().name!!
-        else {
-            println("ERROR! Cannot find person with id = $id in persons_db")
-            null
-        }
-    }
-
-    fun isEmptyAccount(id : Long) = personRepository.findById(id).get().personal_account == null
-
-    fun getListOfEmptyAccounts() : List<Long> {
+    fun getListOfEmptyAccounts(): List<Long> {
         val list = mutableListOf<Long>()
         personRepository.getAllId().forEach {
             if (isEmptyAccount(it)) list.add(it)
@@ -42,7 +39,7 @@ class DbServices (val personRepository: PersonRepository) {
         return list
     }
 
-    fun updateAccount (id: Long, personalAccount : Int) {
+    fun updateAccount(id: Long, personalAccount: Int) {
         if (personRepository.findById(id).isPresent) {
             val person = personRepository.findById(id).get()
             if (person.personal_account == null) {
@@ -53,8 +50,8 @@ class DbServices (val personRepository: PersonRepository) {
         } else println("ERROR! Cannot find person with id = $id in persons_db")
     }
 
-    fun getAllPersons() : PersonsDb {
-        val personsFromRepo : MutableIterable<PersonEntity> = personRepository.findAll()
+    fun getAllPersons(): PersonsDb {
+        val personsFromRepo: MutableIterable<PersonEntity> = personRepository.findAll()
         var personsDb = PersonsDb()
         personsFromRepo.forEach {
             personsDb.listOfPersons.add(it)
@@ -63,13 +60,15 @@ class DbServices (val personRepository: PersonRepository) {
     }
 
     fun toHobbyDTO(hobbyEntity: HobbyEntity) = HobbyDTO(
+            hobbyEntity.id,
             hobbyEntity.hobby_name,
-            hobbyEntity.complexity
+            hobbyEntity.complexity,
+            hobbyEntity.person_entity?.id
     )
 
-    fun getHobbiesDTO(personEntity: PersonEntity) : HobbiesDTO{
-        val hobbyList : MutableList<HobbyDTO> = arrayListOf()
-        personEntity.hobbies.forEach{hobbyList.add(toHobbyDTO(it))}
+    fun getHobbiesDTO(personEntity: PersonEntity): HobbiesDTO {
+        val hobbyList: MutableList<HobbyDTO> = arrayListOf()
+        personEntity.hobbies.forEach { hobbyList.add(toHobbyDTO(it)) }
         return HobbiesDTO(hobbyList)
     }
 
@@ -81,7 +80,7 @@ class DbServices (val personRepository: PersonRepository) {
             getHobbiesDTO(personEntity)
     )
 
-    fun getPersonDTO(id : Long) : PersonDTO? {
+    fun getPersonDTO(id: Long): PersonDTO? {
         if (personRepository.findById(id).isPresent) {
             val person = personRepository.findById(id).get()
             return toPersonDTO(person)
@@ -100,9 +99,9 @@ class DbServices (val personRepository: PersonRepository) {
 
     }
 
-    fun getAllPersonsDTO() : PersonsDTO {
+    fun getAllPersonsDTO(): PersonsDTO {
         val persons = getAllPersons()
-        var personsList : MutableList<PersonDTO> = arrayListOf()
+        var personsList: MutableList<PersonDTO> = arrayListOf()
         persons.listOfPersons.forEach {
             personsList.add(toPersonDTO(it))
         }
@@ -116,11 +115,17 @@ class DbServices (val personRepository: PersonRepository) {
         personRepository.save(personEntity)
     }
 
-    fun isValidId(id : Long) = personRepository.existsById(id)
+    fun isValidId(id: Long) = personRepository.existsById(id)
 
-    fun deleteById(id : Long) {
+    fun deleteById(id: Long) {
         if (isValidId(id)) personRepository.deleteById(id)
         else println("ERROR! Cannot find person with id = $id in persons_db")
+    }
+
+    fun deleteHobby(id: Long?) : Long? {
+        val personId = hobbyRepository.findById(id!!).get().person_entity?.id
+        hobbyRepository.deleteById(id)
+        return personId
     }
 
 }

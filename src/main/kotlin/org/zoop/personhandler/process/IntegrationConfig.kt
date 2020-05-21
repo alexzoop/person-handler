@@ -8,9 +8,8 @@ import org.springframework.integration.file.FileReadingMessageSource
 import org.springframework.integration.file.FileWritingMessageHandler
 import org.springframework.integration.file.filters.SimplePatternFileListFilter
 import org.springframework.messaging.Message
-import org.springframework.messaging.MessageChannel
 import org.springframework.messaging.MessageHandler
-import org.zoop.personhandler.dbentities.DbServices
+import org.zoop.personhandler.database.DbServices
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer

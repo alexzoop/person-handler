@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import org.zoop.personhandler.dbentities.DbServices
+import org.zoop.personhandler.database.DbServices
 import org.zoop.personhandler.controller.forms.PersonAddForm
 import org.zoop.personhandler.utils.DateFormatter
 
@@ -74,7 +74,7 @@ class Controller(val dbServices: DbServices) {
 
     @RequestMapping("/deleteHobby")
     fun deleteHobby(@RequestParam(value = "id") id: Long): String {
-        if (dbServices.isValidId(id)) dbServices.deleteById(id)
-        return "redirect:/hobbyList?id=$id"
+        val personId = dbServices.deleteHobby(id)
+        return "redirect:/hobbyList?id=$personId"
     }
 }
