@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.zoop.personhandler.dbentities.DbServices
-import org.zoop.personhandler.restdto.PersonAddForm
+import org.zoop.personhandler.controller.forms.PersonAddForm
 import org.zoop.personhandler.utils.DateFormatter
-import java.util.concurrent.atomic.AtomicLong
 
 
 @Controller
@@ -63,5 +62,19 @@ class Controller(val dbServices: DbServices) {
     fun deletePerson(@RequestParam(value = "id") id: Long): String {
         if (dbServices.isValidId(id)) dbServices.deleteById(id)
         return "redirect:/personList"
+    }
+
+    @RequestMapping(value = ["/hobbyList"], method = [RequestMethod.GET])
+    fun hobbyList(
+            @RequestParam(value = "id") id: Long,
+            model: Model): String {
+        model.addAttribute("PersonDTO", dbServices.getPersonDTO(id))
+        return "hobbyList"
+    }
+
+    @RequestMapping("/deleteHobby")
+    fun deleteHobby(@RequestParam(value = "id") id: Long): String {
+        if (dbServices.isValidId(id)) dbServices.deleteById(id)
+        return "redirect:/hobbyList?id=$id"
     }
 }

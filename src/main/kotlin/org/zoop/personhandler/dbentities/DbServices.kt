@@ -1,6 +1,7 @@
 package org.zoop.personhandler.dbentities
 
 import org.springframework.stereotype.Component
+import org.zoop.personhandler.controller.forms.PersonAddForm
 import org.zoop.personhandler.restdto.*
 import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.utils.copyEntities

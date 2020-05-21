@@ -1,7 +1,7 @@
 package org.zoop.personhandler.restdto
 
 class HobbiesDTO (val _hobby_list : MutableList<HobbyDTO>) {
-    private val hobbyList = _hobby_list
+    val hobbyList = _hobby_list
 
     override fun toString(): String {
         val result = StringBuilder("")

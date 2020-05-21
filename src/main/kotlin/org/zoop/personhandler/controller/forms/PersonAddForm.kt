@@ -1,4 +1,4 @@
-package org.zoop.personhandler.restdto
+package org.zoop.personhandler.controller.forms
 
 class PersonAddForm (){
     var name : String? = null

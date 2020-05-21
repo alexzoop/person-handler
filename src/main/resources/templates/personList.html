@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Person List</title>
+    <title> Person List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -15,7 +15,7 @@
             <th>Name</th>
             <th>Birthday</th>
             <th>Account</th>
-            <th>Hobbies</th>
+            <th colspan="2">Hobbies</th>
             <th>Delete</th>
         </tr>
         <tr th:each ="PersonDTO : ${persons}">
@@ -24,6 +24,7 @@
             <td th:utext="${PersonDTO.birthday}">...</td>
             <td th:utext="${PersonDTO.account}">...</td>
             <td th:utext="${PersonDTO.hobbies}">...</td>
+            <td width="10px"> <a th:href="@{'/hobbyList?id=' + ${PersonDTO.id}}">⁞</a> </td>
             <td> <a th:href="@{'/delete?id=' + ${PersonDTO.id}}">x</a> </td>
         </tr>
     </table>
