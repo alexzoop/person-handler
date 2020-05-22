@@ -25,7 +25,7 @@
             <td th:utext="${PersonDTO.birthday}">...</td>
             <td th:utext="${PersonDTO.account}">...</td>
             <td th:utext="${PersonDTO.hobbies}">...</td>
-            <td width="10px"> <a th:href="@{'/hobbyList?id=' + ${PersonDTO.id}}">⁞</a> </td>
+            <td width="10px"> <a th:href="@{'/hobbyList?personid=' + ${PersonDTO.id}}">⁞</a> </td>
             <td> <a th:href="@{'/delete?id=' + ${PersonDTO.id}}">x</a> </td>
         </tr>
     </table>

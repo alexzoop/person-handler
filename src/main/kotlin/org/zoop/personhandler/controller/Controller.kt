@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import org.zoop.personhandler.controller.forms.HobbyAddForm
 import org.zoop.personhandler.database.DbServices
 import org.zoop.personhandler.controller.forms.PersonAddForm
 import org.zoop.personhandler.utils.DateFormatter
@@ -66,7 +67,7 @@ class Controller(val dbServices: DbServices) {
 
     @RequestMapping(value = ["/hobbyList"], method = [RequestMethod.GET])
     fun hobbyList(
-            @RequestParam(value = "id") id: Long,
+            @RequestParam(value = "personid") id: Long,
             model: Model): String {
         model.addAttribute("PersonDTO", dbServices.getPersonDTO(id))
         return "hobbyList"
@@ -75,6 +76,38 @@ class Controller(val dbServices: DbServices) {
     @RequestMapping("/deleteHobby")
     fun deleteHobby(@RequestParam(value = "id") id: Long): String {
         val personId = dbServices.deleteHobby(id)
-        return "redirect:/hobbyList?id=$personId"
+        return "redirect:/hobbyList?personid=$personId"
+    }
+
+    @RequestMapping(value = ["/addHobby"], method = [RequestMethod.GET])
+    fun showAddHobbyPage(
+            @RequestParam(value = "personid") id: Long,
+            model: Model
+    ): String {
+        val hobbyAddForm = HobbyAddForm()
+        model.addAttribute("hobbyAddForm", hobbyAddForm)
+        return "addHobby?personid=$id"
+    }
+
+    @RequestMapping(value = ["/addHobby"], method = [RequestMethod.POST])
+    fun saveHobby(
+            @RequestParam(value = "personid") id: Long,
+            model: Model,
+            @ModelAttribute("hobbyAddForm") hobbyAddForm: HobbyAddForm
+    ): String {
+        hobbyAddForm.personId = id
+        val hobby_name: String? = hobbyAddForm.hobby_name
+        val complexity: String? = hobbyAddForm.complexity
+        if (
+                complexity?.toIntOrNull() != null
+                && hobby_name != null
+                && hobby_name.isNotEmpty()
+                && complexity?.toInt() >= 0
+        ) {
+            dbServices.addHobbyForm(hobbyAddForm)
+            return "redirect:/hobbyList?personid=$id"
+        }
+        model.addAttribute("errorMessage", errorMessage)
+        return "addHobby?personid=$id"
     }
 }
