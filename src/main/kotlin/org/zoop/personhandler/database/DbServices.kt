@@ -134,5 +134,6 @@ class DbServices(
         hobbyEntity.hobby_name = hobbyAddForm.hobby_name
         hobbyEntity.complexity = hobbyAddForm.complexity!!.toInt()
         hobbyEntity.person_entity = personRepository.findById(hobbyAddForm.personId!!).get()
+        hobbyRepository.save(hobbyEntity)
     }
 }

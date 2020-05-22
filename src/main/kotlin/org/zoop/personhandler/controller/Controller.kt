@@ -85,29 +85,28 @@ class Controller(val dbServices: DbServices) {
             model: Model
     ): String {
         val hobbyAddForm = HobbyAddForm()
+        hobbyAddForm.personId = id
         model.addAttribute("hobbyAddForm", hobbyAddForm)
-        return "addHobby?personid=$id"
+        return "addHobby"
     }
 
     @RequestMapping(value = ["/addHobby"], method = [RequestMethod.POST])
     fun saveHobby(
-            @RequestParam(value = "personid") id: Long,
             model: Model,
             @ModelAttribute("hobbyAddForm") hobbyAddForm: HobbyAddForm
     ): String {
-        hobbyAddForm.personId = id
-        val hobby_name: String? = hobbyAddForm.hobby_name
-        val complexity: String? = hobbyAddForm.complexity
+        val hobby_name = hobbyAddForm.hobby_name
+        val complexity = hobbyAddForm.complexity
+        val personId = hobbyAddForm.personId
         if (
-                complexity?.toIntOrNull() != null
-                && hobby_name != null
-                && hobby_name.isNotEmpty()
-                && complexity?.toInt() >= 0
+                hobby_name!!.isNotEmpty()
+               && complexity?.toInt()!! >= 0
         ) {
             dbServices.addHobbyForm(hobbyAddForm)
-            return "redirect:/hobbyList?personid=$id"
+            return "redirect:/hobbyList?personid=${hobbyAddForm.personId}"
         }
         model.addAttribute("errorMessage", errorMessage)
-        return "addHobby?personid=$id"
+
+        return "redirect:/addHobby?personid=${hobbyAddForm.personId}"
     }
 }

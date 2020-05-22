@@ -11,13 +11,16 @@
 <h1>Create a Hobby:</h1>
 <form th:action="@{/addHobby}"
       th:object="${hobbyAddForm}" method="POST">
-    Name:
-    <input type="text" placeholder="First and Last name" th:field="*{name}" />
+    Person Id:
+    <input type="text" readonly th:field="*{personId}" />
     <br/>
-    Birthday:
-    <input type="text" placeholder="yyyy-MM-dd" th:field="*{birthday}" />
+    Hobby Name:
+    <input type="text" placeholder="Any skill" th:field="*{hobby_name}" />
     <br/>
-    <input type="submit" value="Add person" />
+    Complexity:
+    <input type="text" placeholder="Number" th:field="*{complexity}" />
+    <br/>
+    <input type="submit" value="Add hobby" />
 </form>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
      style="color:red;font-style:italic; font-size: 20px; padding-top: 20px; padding-left: 20px">

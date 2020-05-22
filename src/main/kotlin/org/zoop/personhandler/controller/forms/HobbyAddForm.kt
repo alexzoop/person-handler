@@ -1,7 +1,7 @@
 package org.zoop.personhandler.controller.forms
 
 class HobbyAddForm {
-    val hobby_name : String? = null
-    val complexity : String? = null
+    var hobby_name : String? = null
+    var complexity : String? = null
     var personId : Long? = null
 }
