@@ -8,7 +8,7 @@ import org.zoop.personhandler.database.entities.PersonEntity
 import org.zoop.personhandler.database.entities.PersonsDb
 import org.zoop.personhandler.database.repo.HobbyRepository
 import org.zoop.personhandler.database.repo.PersonRepository
-import org.zoop.personhandler.restdto.*
+import org.zoop.personhandler.controller.restdto.*
 import org.zoop.personhandler.utils.DateFormatter
 import org.zoop.personhandler.utils.copyEntities
 import org.zoop.personhandler.xmlentities.unmarshalData

@@ -1,4 +1,4 @@
-package org.zoop.personhandler.restdto
+package org.zoop.personhandler.controller.restdto
 
 class HobbiesDTO (val _hobby_list : MutableList<HobbyDTO>) {
     val hobbyList = _hobby_list
