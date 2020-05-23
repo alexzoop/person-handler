@@ -30,7 +30,16 @@ class Controller(val dbServices: DbServices) {
     }
 
     @RequestMapping(value = ["/personList"], method = [RequestMethod.GET])
-    fun personList(model: Model): String {
+    fun personList(model: Model,
+                   @RequestParam(value = "upload", defaultValue = "none") message : String
+    ): String {
+        when (message) {
+            "s" -> {model.addAttribute("message", "File has successfully uploaded")
+            }
+            "sw" -> {model.addAttribute("message", "Something wrong with your file")
+            }
+            "ef" -> {model.addAttribute("message", "File is empty")}
+        }
         model.addAttribute("persons", dbServices.getAllPersonsDTO().listOfPersons)
         return "personList"
     }
@@ -86,13 +95,11 @@ class Controller(val dbServices: DbServices) {
     @RequestMapping(value = ["/addHobby"], method = [RequestMethod.GET])
     fun showAddHobbyPage(
             @RequestParam(value = "personid") id: Long,
-            @ModelAttribute("errorMessage") error : String?,
             model: Model
     ): String {
         val hobbyAddForm = HobbyAddForm()
         hobbyAddForm.personId = id
         model.addAttribute("hobbyAddForm", hobbyAddForm)
-        model.addAttribute("errorMessage", error)
         return "addHobby"
     }
 
@@ -105,35 +112,37 @@ class Controller(val dbServices: DbServices) {
         val complexity = hobbyAddForm.complexity
         val personId = hobbyAddForm.personId
         if (
-                hobby_name!!.isNotEmpty()
-               && complexity?.toInt()!! >= 0
+                !hobby_name.isNullOrEmpty()
+                && complexity.isNullOrEmpty()
+                && complexity?.toIntOrNull() != null
+                && complexity.toInt() > 0
         ) {
             dbServices.addHobbyForm(hobbyAddForm)
-            return "redirect:/hobbyList?personid=${hobbyAddForm.personId}"
+            return "redirect:/hobbyList?personid=${personId}"
         }
         model.addAttribute("errorMessage", errorMessage)
-
-        return "redirect:/addHobby?personid=$personId"
+        return "addHobby"
     }
 
     @RequestMapping(value = ["/upload"], method = [RequestMethod.POST])
     fun postFileUpload(@RequestParam("file") file: MultipartFile,
                          model: Model
     ): String? {
-        if (!file.isEmpty) {
+        val message : String
+        message = if (!file.isEmpty) {
             try {
                 val bytes = file.bytes
                 val stream = BufferedOutputStream(FileOutputStream(File("xmlData/input/${file.originalFilename}")))
                 stream.write(bytes)
                 stream.close()
-                model.addAttribute("uploadMessage", "${file.originalFilename} has successfully uploaded")
+                "s"
 
             } catch (e: Exception) {
-                model.addAttribute("uploadMessage", "Wrong file ${file.originalFilename}!")
+                "sw"
             }
         } else {
-            model.addAttribute("uploadMessage", "${file.name} is empty")
+            "ef"
         }
-        return "redirect:/personList"
+        return "redirect:/personList?upload=$message"
     }
 }
