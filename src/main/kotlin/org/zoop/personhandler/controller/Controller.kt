@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import org.zoop.personhandler.controller.forms.HobbyAddForm
-import org.zoop.personhandler.database.DbServices
 import org.zoop.personhandler.controller.forms.PersonAddForm
+import org.zoop.personhandler.database.DbServices
 import org.zoop.personhandler.utils.DateFormatter
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 @Controller
@@ -82,11 +86,13 @@ class Controller(val dbServices: DbServices) {
     @RequestMapping(value = ["/addHobby"], method = [RequestMethod.GET])
     fun showAddHobbyPage(
             @RequestParam(value = "personid") id: Long,
+            @ModelAttribute("errorMessage") error : String?,
             model: Model
     ): String {
         val hobbyAddForm = HobbyAddForm()
         hobbyAddForm.personId = id
         model.addAttribute("hobbyAddForm", hobbyAddForm)
+        model.addAttribute("errorMessage", error)
         return "addHobby"
     }
 
@@ -107,6 +113,27 @@ class Controller(val dbServices: DbServices) {
         }
         model.addAttribute("errorMessage", errorMessage)
 
-        return "redirect:/addHobby?personid=${hobbyAddForm.personId}"
+        return "redirect:/addHobby?personid=$personId"
+    }
+
+    @RequestMapping(value = ["/upload"], method = [RequestMethod.POST])
+    fun postFileUpload(@RequestParam("file") file: MultipartFile,
+                         model: Model
+    ): String? {
+        if (!file.isEmpty) {
+            try {
+                val bytes = file.bytes
+                val stream = BufferedOutputStream(FileOutputStream(File("xmlData/input/${file.originalFilename}")))
+                stream.write(bytes)
+                stream.close()
+                model.addAttribute("uploadMessage", "${file.originalFilename} has successfully uploaded")
+
+            } catch (e: Exception) {
+                model.addAttribute("uploadMessage", "Wrong file ${file.originalFilename}!")
+            }
+        } else {
+            model.addAttribute("uploadMessage", "${file.name} is empty")
+        }
+        return "redirect:/personList"
     }
 }

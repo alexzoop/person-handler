@@ -1,5 +1,6 @@
 package org.zoop.personhandler.process
 
+import org.springframework.boot.web.servlet.MultipartConfigFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.integration.core.MessageSource
@@ -13,6 +14,8 @@ import org.zoop.personhandler.database.DbServices
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
+import javax.servlet.MultipartConfigElement
+
 
 @Configuration
 class IntegrationConfig(val dbServices: DbServices) {
@@ -82,4 +85,7 @@ class IntegrationConfig(val dbServices: DbServices) {
         handler.setAutoCreateDirectory(true)
         return handler
     }
+
+    @Bean
+    fun multipartConfigElement() = MultipartConfigFactory().createMultipartConfig()
 }

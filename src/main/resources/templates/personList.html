@@ -9,6 +9,10 @@
 <h1>Person List</h1>
 <a href="index">Main Page</a>
 <br/><br/>
+<div th:if="${uploadMessage}" th:utext="${uploadMessage}"
+     style="color:red;font-style:italic; font-size: 20px; padding-top: 20px; padding-left: 20px">
+    ...
+</div>
 <div>
     <table border="1" width="100%">
         <tr>
@@ -32,5 +36,10 @@
 </div>
 <br/><br/>
 <a href="addPerson">Add Person</a>
+<form method="POST" enctype="multipart/form-data"
+      action="/upload">
+    XML to upload: <input type="file" name="file">
+    <input type="submit" value="Upload">
+</form>
 </body>
 </html>
