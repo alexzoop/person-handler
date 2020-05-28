@@ -8,6 +8,7 @@
 <body>
 <a href="index">Main Page</a>
 <a href="personList">Person List</a>
+<a th:href="@{/logout}">Sign Out</a>
 <h1>Create a Hobby:</h1>
 <form th:action="@{/addHobby}"
       th:object="${hobbyAddForm}" method="POST">

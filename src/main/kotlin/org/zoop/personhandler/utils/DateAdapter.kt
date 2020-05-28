@@ -13,4 +13,5 @@ class DateAdapter : XmlAdapter<String, Date>() {
     override fun marshal(v: Date?): String {
         return dateFormat.format(v)
     }
+
 }

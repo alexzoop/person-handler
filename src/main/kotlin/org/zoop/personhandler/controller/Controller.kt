@@ -22,7 +22,7 @@ class Controller(val dbServices: DbServices) {
 
     @Value("\${error.message}")
     lateinit var errorMessage: String
-
+    //@GetMapping(value = ["/", "/index"])
     @RequestMapping(value = ["/", "/index"], method = [RequestMethod.GET])
     fun index(model: Model): String {
         model.addAttribute("message", welcomeMessage)
